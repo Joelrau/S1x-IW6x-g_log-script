@@ -26,7 +26,7 @@ function create_path(path)
     os.execute("if not exist " .. dir .. " mkdir " .. dir)
 end
 
-function log_message(message)
+function logPrint(message)
     local path = game:getdvar("g_log")
     local file = io.open(path, "a")
     if(file == nil) then
@@ -40,8 +40,8 @@ end
 function init()
     start_time = game:gettime()
 
-    log_message("------------------------------------------------------------")
-    log_message("InitGame")
+    logPrint("------------------------------------------------------------")
+    logPrint("InitGame")
 
     level:onnotify("connected", player_connected)
 
@@ -56,7 +56,7 @@ function init()
 end
 
 function player_connected(player)
-    log_message(string.format("J;%s;%i;%s", 
+    logPrint(string.format("J;%s;%i;%s", 
     player:getguid(), 
     player:getentitynumber(), 
     player.name))
@@ -65,7 +65,7 @@ function player_connected(player)
 end
 
 function disconnect(player)
-    log_message(string.format("Q;%s;%i;%s", 
+    logPrint(string.format("Q;%s;%i;%s", 
     player:getguid(), 
     player:getentitynumber(), 
     player.name))
@@ -73,7 +73,7 @@ end
 
 function player_damage(_self, inflictor, attacker, damage, dflags, mod, weapon, vPoint, vDir, hitLoc)
     if(game:isplayer(attacker) == 1) then
-        log_message(string.format("D;%s;%i;%s;%s;%s;%i;%s;%s;%s;%i;%s;%s", 
+        logPrint(string.format("D;%s;%i;%s;%s;%s;%i;%s;%s;%s;%i;%s;%s", 
         _self:getguid(), 
         _self:getentitynumber(), 
         _self.team, 
@@ -87,7 +87,7 @@ function player_damage(_self, inflictor, attacker, damage, dflags, mod, weapon, 
         mod, 
         hitLoc))
     else
-        log_message(string.format("D;%s;%i;%s;%s;%s;%i;%s;%s;%s;%i;%s;%s", 
+        logPrint(string.format("D;%s;%i;%s;%s;%s;%i;%s;%s;%s;%i;%s;%s", 
         _self:getguid(), 
         _self:getentitynumber(), 
         _self.team, 
@@ -105,7 +105,7 @@ end
 
 function player_killed(_self, inflictor, attacker, damage, mod, weapon, vDir, hitLoc, psTimeOffset, deathAnimDuration)
     if(game:isplayer(attacker) == 1) then
-        log_message(string.format("K;%s;%i;%s;%s;%s;%i;%s;%s;%s;%i;%s;%s", 
+        logPrint(string.format("K;%s;%i;%s;%s;%s;%i;%s;%s;%s;%i;%s;%s", 
         _self:getguid(), 
         _self:getentitynumber(), 
         _self.team, 
@@ -119,7 +119,7 @@ function player_killed(_self, inflictor, attacker, damage, mod, weapon, vDir, hi
         mod, 
         hitLoc))
     else
-        log_message(string.format("K;%s;%i;%s;%s;%s;%i;%s;%s;%s;%i;%s;%s", 
+        logPrint(string.format("K;%s;%i;%s;%s;%s;%i;%s;%s;%s;%i;%s;%s", 
         _self:getguid(), 
         _self:getentitynumber(), 
         _self.team, 
@@ -136,7 +136,7 @@ function player_killed(_self, inflictor, attacker, damage, mod, weapon, vDir, hi
 end
 
 function say(player, message)
-    log_message(string.format("say;%s;%i;%s;%s", 
+    logPrint(string.format("say;%s;%i;%s;%s", 
     player:getguid(), 
     player:getentitynumber(), 
     player.name, 
@@ -144,7 +144,7 @@ function say(player, message)
 end
 
 function say_team(player, message)
-    log_message(string.format("say_team;%s;%i;%s;%s", 
+    logPrint(string.format("say_team;%s;%i;%s;%s", 
     player:getguid(), 
     player:getentitynumber(), 
     player.name, 
@@ -152,12 +152,12 @@ function say_team(player, message)
 end
 
 function exitLevel_called()
-    log_message("ExitLevel: executed")
+    logPrint("ExitLevel: executed")
 end
 
 function shutdownGame_called()
-    log_message("ShutdownGame:")
-    log_message("------------------------------------------------------------")
+    logPrint("ShutdownGame:")
+    logPrint("------------------------------------------------------------")
 end
 
 init()
